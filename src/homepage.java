@@ -21,6 +21,7 @@ public class homepage extends javax.swing.JFrame {
     public Float total;
     public homepage() {
         initComponents();
+        setSize(1400,800);
     }
 
     /**
@@ -40,7 +41,6 @@ public class homepage extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         ppu = new javax.swing.JTextField();
         del = new javax.swing.JButton();
-        ad = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         qty = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
@@ -50,32 +50,34 @@ public class homepage extends javax.swing.JFrame {
         update = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         T1 = new javax.swing.JTable();
+        price = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jLabel1.setText("Item Name");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(370, 150, 90, 40);
+        jLabel1.setBounds(460, 150, 90, 40);
         getContentPane().add(item);
-        item.setBounds(490, 150, 560, 40);
+        item.setBounds(580, 150, 560, 40);
 
         jLabel2.setText("Total Stock");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(370, 220, 120, 40);
+        jLabel2.setBounds(460, 220, 120, 40);
         getContentPane().add(totalqty);
-        totalqty.setBounds(490, 220, 90, 40);
+        totalqty.setBounds(580, 220, 90, 40);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel3.setText("INVOICE");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(640, 50, 150, 70);
+        jLabel3.setBounds(730, 50, 150, 70);
 
         jLabel4.setText("Price Per Unit");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(790, 220, 110, 40);
+        jLabel4.setBounds(880, 220, 110, 40);
         getContentPane().add(ppu);
-        ppu.setBounds(900, 220, 130, 40);
+        ppu.setBounds(990, 220, 130, 40);
 
         del.setText("DELETE");
         del.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -85,21 +87,11 @@ public class homepage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(del);
-        del.setBounds(940, 350, 90, 30);
-
-        ad.setText("ADD");
-        ad.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adActionPerformed(evt);
-            }
-        });
-        getContentPane().add(ad);
-        ad.setBounds(650, 350, 90, 30);
+        del.setBounds(890, 350, 90, 30);
 
         jLabel6.setText("Quantity Required");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(350, 280, 140, 40);
+        jLabel6.setBounds(440, 280, 140, 40);
 
         qty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,14 +105,24 @@ public class homepage extends javax.swing.JFrame {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 qtyKeyReleased(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                qtyKeyTyped(evt);
+            }
         });
         getContentPane().add(qty);
-        qty.setBounds(490, 280, 90, 40);
+        qty.setBounds(580, 280, 90, 40);
 
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton3.setText("Update Stock");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3);
-        jButton3.setBounds(90, 10, 120, 40);
+        jButton3.setBounds(100, 300, 130, 40);
 
+        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton4.setText("Generate Bill");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,11 +130,17 @@ public class homepage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton4);
-        jButton4.setBounds(200, 10, 110, 40);
+        jButton4.setBounds(100, 440, 130, 40);
 
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton5.setText("Add Stock");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton5);
-        jButton5.setBounds(10, 10, 90, 40);
+        jButton5.setBounds(120, 180, 110, 40);
 
         jButton6.setText("Generate Bill");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -142,7 +150,7 @@ public class homepage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton6);
-        jButton6.setBounds(750, 630, 77, 21);
+        jButton6.setBounds(840, 630, 77, 21);
 
         update.setText("UPDATE");
         update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -152,7 +160,7 @@ public class homepage extends javax.swing.JFrame {
             }
         });
         getContentPane().add(update);
-        update.setBounds(800, 350, 79, 30);
+        update.setBounds(750, 350, 79, 30);
 
         T1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,7 +178,16 @@ public class homepage extends javax.swing.JFrame {
         jScrollPane2.setViewportView(T1);
 
         getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(470, 410, 600, 180);
+        jScrollPane2.setBounds(560, 410, 600, 180);
+
+        price.setBackground(new java.awt.Color(255, 255, 255));
+        price.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        getContentPane().add(price);
+        price.setBounds(990, 280, 130, 40);
+
+        jLabel5.setText("Total Price");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(880, 280, 90, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -182,30 +199,7 @@ public class homepage extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void adActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel model=(DefaultTableModel) T1.getModel();
-        
-        if(!(item.getText().trim().equals("")&&qty.getText().trim().equals("")))
-        {
-            String a=ppu.getText();
-            String b=qty.getText();
-            Float a1=Float.parseFloat(a);
-            Float b1=Float.parseFloat(b);
-            total=a1*b1;
-             //price(total);
-            model.addRow(new Object[]{ item.getText(),qty.getText(),total});
-        item.setText("");
-        totalqty.setText("");
-        qty.setText("");
-        ppu.setText("");
-    }//GEN-LAST:event_adActionPerformed
-        else
-        {
-            JOptionPane.showMessageDialog(null,"Field cannot be left blank");
-        }
-    }
+     
     private void delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel) T1.getModel();
@@ -220,6 +214,7 @@ public class homepage extends javax.swing.JFrame {
         totalqty.setText("");
         qty.setText("");
        ppu.setText("");
+       price.setText("");
     }//GEN-LAST:event_delActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -233,33 +228,117 @@ public class homepage extends javax.swing.JFrame {
         
         else
         {
+           String a=ppu.getText();
+            String b=qty.getText();
+            Float a1=Float.parseFloat(a);
+            Float b1=Float.parseFloat(b);
+            total=a1*b1; 
         model.setValueAt(item.getText(),T1.getSelectedRow() , 0);
          model.setValueAt(qty.getText(),T1.getSelectedRow() , 1);
+        model.setValueAt(total,T1.getSelectedRow() , 2);
         }
     }//GEN-LAST:event_updateActionPerformed
 
     private void T1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MouseClicked
-        // TODO add your handling code here:
+//T1.setRowSelectionAllowed(false);       // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel) T1.getModel();
+        if(T1.getSelectedRow()==-1)
+          if(T1.getRowCount()==0)
+                JOptionPane.showMessageDialog(null,"Table is empty");
+          else
+                JOptionPane.showMessageDialog(null,"Select any row");
+        
+        else
+        {
         item.setText(model.getValueAt(T1.getSelectedRow(), 0).toString());
-        ppu.setText(model.getValueAt(T1.getSelectedRow(), 1).toString());
-        qty.setText(model.getValueAt(T1.getSelectedRow(), 2).toString());
+        price.setText(model.getValueAt(T1.getSelectedRow(), 2).toString());
+        qty.setText(model.getValueAt(T1.getSelectedRow(), 1).toString());
+        }
     }//GEN-LAST:event_T1MouseClicked
 
     private void qtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyPressed
-        // TODO add your handling code here:
-        
-        
+       
     }//GEN-LAST:event_qtyKeyPressed
 
     private void qtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyReleased
         // TODO add your handling code here:
+try
+{
+        float a=Float.parseFloat(ppu.getText());
+            float b=Float.parseFloat(qty.getText());
+          //  Float a1=a);
+            //Float b1=Float.parseFloat(b);
+            total=a*b;
   
+        //System.out.println(total);
+        price.setText(total+"");        // TODO add your handling code here:
+}
+catch(Exception e)
+{
+    
+}
+    
     }//GEN-LAST:event_qtyKeyReleased
 
     private void qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyActionPerformed
         // TODO add your handling code here:
+       
     }//GEN-LAST:event_qtyActionPerformed
+
+    private void qtyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyTyped
+try
+{
+        if(qty.getText().length()<0)
+{
+    
+}
+  else
+{
+    char st=evt.getKeyChar();
+//if length is greater than 9 put that condtn in if part for length constraint
+if(!Character.isDigit(st))
+{  
+    evt.consume();
+}
+else
+{
+  //  evt.consume();//doesnt print
+}
+  if(st==KeyEvent.VK_ENTER)
+  {
+ // TODO add your handling code here:
+
+  DefaultTableModel model=(DefaultTableModel) T1.getModel();
+        
+        
+            String a=ppu.getText();
+            String b=qty.getText();
+            Float a1=Float.parseFloat(a);
+            Float b1=Float.parseFloat(b);
+            total=a1*b1;
+            model.addRow(new Object[]{ item.getText(),qty.getText(),total});
+        item.setText("");
+        totalqty.setText("");
+        qty.setText("");
+        ppu.setText("");
+        price.setText("");
+  }       
+}     
+}
+catch(Exception e){}
+    }//GEN-LAST:event_qtyKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        update u= new update();
+        u.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        Add_stock a=new Add_stock();
+        a.setVisible(true);
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,7 +377,6 @@ public class homepage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable T1;
-    private javax.swing.JButton ad;
     private javax.swing.JButton del;
     private javax.swing.JTextField item;
     private javax.swing.JButton jButton3;
@@ -309,9 +387,11 @@ public class homepage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField ppu;
+    private javax.swing.JLabel price;
     private javax.swing.JTextField qty;
     private javax.swing.JTextField totalqty;
     private javax.swing.JButton update;
