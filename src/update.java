@@ -3,6 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -29,7 +37,6 @@ public class update extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         pid = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -38,9 +45,9 @@ public class update extends javax.swing.JFrame {
         item = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         qty = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        T1 = new javax.swing.JTable();
         updt = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,47 +65,62 @@ public class update extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jTextField1.setText("UPDATE STOCK");
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(568, 58, 240, 52);
-
-        jLabel1.setText("Item Name");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Product Name");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(310, 210, 110, 40);
-        getContentPane().add(pid);
-        pid.setBounds(770, 220, 100, 22);
+        jLabel1.setBounds(300, 210, 110, 40);
 
+        pid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pidKeyTyped(evt);
+            }
+        });
+        getContentPane().add(pid);
+        pid.setBounds(770, 220, 100, 30);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Product ID");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(650, 220, 90, 16);
-        getContentPane().add(ppu);
-        ppu.setBounds(780, 290, 90, 22);
+        jLabel2.setBounds(650, 230, 90, 14);
 
+        ppu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ppuKeyTyped(evt);
+            }
+        });
+        getContentPane().add(ppu);
+        ppu.setBounds(770, 290, 100, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Price Per Unit");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(640, 290, 90, 20);
-        getContentPane().add(item);
-        item.setBounds(440, 220, 90, 22);
+        jLabel3.setBounds(650, 300, 90, 20);
 
+        item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemActionPerformed(evt);
+            }
+        });
+        item.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemKeyTyped(evt);
+            }
+        });
+        getContentPane().add(item);
+        item.setBounds(420, 210, 90, 30);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Quantity");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(320, 300, 70, 20);
-        getContentPane().add(qty);
-        qty.setBounds(440, 290, 90, 22);
+        jLabel4.setBounds(330, 300, 70, 20);
 
-        T1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Product ID", "Quantity", "Price Per Unit"
+        qty.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                qtyKeyTyped(evt);
             }
-        ));
-        jScrollPane2.setViewportView(T1);
-
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(380, 420, 520, 170);
+        });
+        getContentPane().add(qty);
+        qty.setBounds(420, 290, 90, 30);
 
         updt.setText("UPDATE");
         updt.addActionListener(new java.awt.event.ActionListener() {
@@ -107,15 +129,262 @@ public class update extends javax.swing.JFrame {
             }
         });
         getContentPane().add(updt);
-        updt.setBounds(560, 670, 79, 25);
+        updt.setBounds(570, 380, 100, 25);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        jLabel5.setText("UPDATE STOCK");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(510, 40, 260, 70);
+
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Asus\\Desktop\\project\\icons8-Home-48.png")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(140, 370, 90, 60);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void updtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updtActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model=(DefaultTableModel) T1.getModel();
+        //DefaultTableModel model=(DefaultTableModel) T1.getModel();
+        
+        try
+                                    {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                        PreparedStatement p=con.prepareStatement("update stock set pid=?,qty=?,price=? where name=?");
+                                        p.setString(1,pid.getText());
+                                        p.setInt(2, Integer.parseInt(qty.getText()));
+                                        p.setFloat(3,Float.parseFloat(ppu.getText()));
+                                        p.setString(4, item.getText());
+                                        p.executeUpdate();
+                                        item.setText("");
+                                        qty.setText("");
+                                        ppu.setText("");
+                                        pid.setText("");
+                                        JOptionPane.showMessageDialog(null, "UPDATED!");
+
+                                        con.close();
+                                    }
+                                catch(SQLException e)
+                                    { }
+                                catch(ClassNotFoundException e)
+                                    {}
     }//GEN-LAST:event_updtActionPerformed
+
+    private void itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemActionPerformed
+        // TODO add your handling code here:
+        
+
+        
+    }//GEN-LAST:event_itemActionPerformed
+
+    private void itemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemKeyTyped
+        // TODO add your handling code here:
+      //  DefaultTableModel model=(DefaultTableModel) T1.getModel();
+        char st=evt.getKeyChar();
+        if(st==KeyEvent.VK_ENTER)
+                    {
+                                                
+                                try
+                                    {
+                                        if(item.getText().trim().equals(""))
+                                        JOptionPane.showMessageDialog(null, "Please Enter the Product Name!");
+                                        
+                                        else{
+                                                
+                                                try
+                                                    {
+                                                     
+                                                        Class.forName("com.mysql.jdbc.Driver");
+                                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                                                        p.setString(1, item.getText());
+                                                        ResultSet rs=p.executeQuery();
+                                                        if(rs.equals(0))
+                                                        {
+                                                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                                                        }
+                                                        else{
+                                                        while(rs.next())
+                                                        {
+                                                            //System.out.println("Inside try 2");
+                                                            pid.setText(rs.getString("pid"));
+                                                            qty.setText(rs.getString("qty"));
+                                                            ppu.setText(rs.getString("price"));
+                                                        }
+                                                        }
+                                                        rs.close();
+                                                        p.close();
+                                                        con.close();
+                                                    }
+                                                catch(SQLException e)
+                                                    { }
+                                                catch(ClassNotFoundException e)
+                                                    {}
+
+                                                            }
+                                                    }
+                                                catch(Exception e){}
+                    }
+    }//GEN-LAST:event_itemKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        homee h=new homee();
+        h.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void pidKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pidKeyTyped
+        // TODO add your handling code here:
+         char st=evt.getKeyChar();
+        if(st==KeyEvent.VK_ENTER)
+                    {
+                                                
+                                try
+                                    {
+                                        if(item.getText().trim().equals(""))
+                                        JOptionPane.showMessageDialog(null, "Please Enter the Product ID!");
+                                        
+                                        else{
+                                                
+                                                try
+                                                    {
+                                                     
+                                                        Class.forName("com.mysql.jdbc.Driver");
+                                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                                                        p.setString(1, item.getText());
+                                                        ResultSet rs=p.executeQuery();
+                                                        if(rs.equals(0))
+                                                        {
+                                                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                                                        }
+                                                        else{
+                                                        while(rs.next())
+                                                        {
+                                                            //System.out.println("Inside try 2");
+                                                            pid.setText(rs.getString("pid"));
+                                                            qty.setText(rs.getString("qty"));
+                                                            ppu.setText(rs.getString("price"));
+                                                        }
+                                                        }
+                                                        rs.close();
+                                                        p.close();
+                                                        con.close();
+                                                    }
+                                                catch(SQLException e)
+                                                    { }
+                                                catch(ClassNotFoundException e)
+                                                    {}
+
+                                                            }
+                                                    }
+                                                catch(Exception e){}
+                    }
+    }//GEN-LAST:event_pidKeyTyped
+
+    private void qtyKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_qtyKeyTyped
+        // TODO add your handling code here:
+         char st=evt.getKeyChar();
+        if(st==KeyEvent.VK_ENTER)
+                    {
+                                                
+                                try
+                                    {
+                                        if(item.getText().trim().equals(""))
+                                        JOptionPane.showMessageDialog(null, "Please Enter the Quantity!");
+                                        
+                                        else{
+                                                
+                                                try
+                                                    {
+                                                     
+                                                        Class.forName("com.mysql.jdbc.Driver");
+                                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                                                        p.setString(1, item.getText());
+                                                        ResultSet rs=p.executeQuery();
+                                                        if(rs.equals(0))
+                                                        {
+                                                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                                                        }
+                                                        else{
+                                                        while(rs.next())
+                                                        {
+                                                            //System.out.println("Inside try 2");
+                                                            pid.setText(rs.getString("pid"));
+                                                            qty.setText(rs.getString("qty"));
+                                                            ppu.setText(rs.getString("price"));
+                                                        }
+                                                        }
+                                                        rs.close();
+                                                        p.close();
+                                                        con.close();
+                                                    }
+                                                catch(SQLException e)
+                                                    { }
+                                                catch(ClassNotFoundException e)
+                                                    {}
+
+                                                            }
+                                                    }
+                                                catch(Exception e){}
+                    }
+    }//GEN-LAST:event_qtyKeyTyped
+
+    private void ppuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ppuKeyTyped
+        // TODO add your handling code here:
+         char st=evt.getKeyChar();
+        if(st==KeyEvent.VK_ENTER)
+                    {
+                                                
+                                try
+                                    {
+                                        if(item.getText().trim().equals(""))
+                                        JOptionPane.showMessageDialog(null, "Please Enter the Price Per Unit!");
+                                        
+                                        else{
+                                                
+                                                try
+                                                    {
+                                                     
+                                                        Class.forName("com.mysql.jdbc.Driver");
+                                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                                                        p.setString(1, item.getText());
+                                                        ResultSet rs=p.executeQuery();
+                                                        if(rs.equals(0))
+                                                        {
+                                                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                                                        }
+                                                        else{
+                                                        while(rs.next())
+                                                        {
+                                                            //System.out.println("Inside try 2");
+                                                            pid.setText(rs.getString("pid"));
+                                                            qty.setText(rs.getString("qty"));
+                                                            ppu.setText(rs.getString("price"));
+                                                        }
+                                                        }
+                                                        rs.close();
+                                                        p.close();
+                                                        con.close();
+                                                    }
+                                                catch(SQLException e)
+                                                    { }
+                                                catch(ClassNotFoundException e)
+                                                    {}
+
+                                                            }
+                                                    }
+                                                catch(Exception e){}
+                    }
+    }//GEN-LAST:event_ppuKeyTyped
 
     /**
      * @param args the command line arguments
@@ -153,16 +422,15 @@ public class update extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable T1;
     private javax.swing.JTextField item;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField pid;
     private javax.swing.JTextField ppu;
     private javax.swing.JTextField qty;

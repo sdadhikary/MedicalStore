@@ -1,4 +1,9 @@
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -43,41 +48,30 @@ public class homepage extends javax.swing.JFrame {
         del = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         qty = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         update = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         T1 = new javax.swing.JTable();
         price = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        home = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
 
         jLabel1.setText("Item Name");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(460, 150, 90, 40);
-        getContentPane().add(item);
-        item.setBounds(580, 150, 560, 40);
+
+        item.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                itemKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("Total Stock");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(460, 220, 120, 40);
-        getContentPane().add(totalqty);
-        totalqty.setBounds(580, 220, 90, 40);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
         jLabel3.setText("INVOICE");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(730, 50, 150, 70);
 
         jLabel4.setText("Price Per Unit");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(880, 220, 110, 40);
-        getContentPane().add(ppu);
-        ppu.setBounds(990, 220, 130, 40);
 
         del.setText("DELETE");
         del.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -86,12 +80,8 @@ public class homepage extends javax.swing.JFrame {
                 delActionPerformed(evt);
             }
         });
-        getContentPane().add(del);
-        del.setBounds(890, 350, 90, 30);
 
         jLabel6.setText("Quantity Required");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(440, 280, 140, 40);
 
         qty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,38 +99,6 @@ public class homepage extends javax.swing.JFrame {
                 qtyKeyTyped(evt);
             }
         });
-        getContentPane().add(qty);
-        qty.setBounds(580, 280, 90, 40);
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("Update Stock");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(100, 300, 130, 40);
-
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton4.setText("Generate Bill");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(100, 440, 130, 40);
-
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton5.setText("Add Stock");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(120, 180, 110, 40);
 
         jButton6.setText("Generate Bill");
         jButton6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -149,8 +107,6 @@ public class homepage extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(840, 630, 77, 21);
 
         update.setText("UPDATE");
         update.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -159,8 +115,6 @@ public class homepage extends javax.swing.JFrame {
                 updateActionPerformed(evt);
             }
         });
-        getContentPane().add(update);
-        update.setBounds(750, 350, 79, 30);
 
         T1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -177,24 +131,98 @@ public class homepage extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(T1);
 
-        getContentPane().add(jScrollPane2);
-        jScrollPane2.setBounds(560, 410, 600, 180);
-
         price.setBackground(new java.awt.Color(255, 255, 255));
         price.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        getContentPane().add(price);
-        price.setBounds(990, 280, 130, 40);
 
         jLabel5.setText("Total Price");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(880, 280, 90, 40);
+
+        home.setIcon(new javax.swing.ImageIcon("C:\\Users\\Asus\\Desktop\\project\\icons8-Home-48.png")); // NOI18N
+        home.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(730, 730, 730)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(460, 460, 460)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(item, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(460, 460, 460)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(totalqty, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(ppu, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(440, 440, 440)
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(210, 210, 210)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(750, 750, 750)
+                .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(del, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(560, 560, 560)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(293, 293, 293)
+                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(477, 477, 477)
+                .addComponent(jButton6))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(item, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totalqty, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ppu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(qty, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(del, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jButton6))))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -236,12 +264,20 @@ public class homepage extends javax.swing.JFrame {
         model.setValueAt(item.getText(),T1.getSelectedRow() , 0);
          model.setValueAt(qty.getText(),T1.getSelectedRow() , 1);
         model.setValueAt(total,T1.getSelectedRow() , 2);
+        
+        item.setText("");
+        totalqty.setText("");
+        qty.setText("");
+        ppu.setText("");
+        price.setText("");
         }
     }//GEN-LAST:event_updateActionPerformed
 
     private void T1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MouseClicked
 //T1.setRowSelectionAllowed(false);       // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel) T1.getModel();
+         
+
         if(T1.getSelectedRow()==-1)
           if(T1.getRowCount()==0)
                 JOptionPane.showMessageDialog(null,"Table is empty");
@@ -250,9 +286,38 @@ public class homepage extends javax.swing.JFrame {
         
         else
         {
+           
         item.setText(model.getValueAt(T1.getSelectedRow(), 0).toString());
         price.setText(model.getValueAt(T1.getSelectedRow(), 2).toString());
         qty.setText(model.getValueAt(T1.getSelectedRow(), 1).toString());
+         try
+                    {
+
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                        p.setString(1, item.getText());
+                        ResultSet rs=p.executeQuery();
+                        if(rs.equals(0))
+                        {
+                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                        }
+                        else{
+                        while(rs.next())
+                        {
+                            totalqty.setText(rs.getString("qty"));
+                            ppu.setText(rs.getString("price"));
+                        }
+                        }
+                        rs.close();
+                        p.close();
+                        con.close();
+                    }
+                catch(SQLException e)
+                    { }
+                catch(ClassNotFoundException e)
+                    {}
+        
         }
     }//GEN-LAST:event_T1MouseClicked
 
@@ -328,17 +393,60 @@ else
 catch(Exception e){}
     }//GEN-LAST:event_qtyKeyTyped
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
         // TODO add your handling code here:
-        update u= new update();
-        u.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        homee h=new homee();
+        h.setVisible(true);
+    }//GEN-LAST:event_homeActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void itemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itemKeyTyped
         // TODO add your handling code here:
-        Add_stock a=new Add_stock();
-        a.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        char st=evt.getKeyChar();
+        if(st==KeyEvent.VK_ENTER)
+                    {
+                                                
+                                try
+                                    {
+                                        if(item.getText().trim().equals(""))
+                                        JOptionPane.showMessageDialog(null, "Please Enter the Product Name!");
+                                        
+                                        else{
+                                                
+                                                try
+                                                    {
+                                                     
+                                                        Class.forName("com.mysql.jdbc.Driver");
+                                                        Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/project","root","mysql");
+                                                        PreparedStatement p=con.prepareStatement("select * from stock where name=?");
+                                                        p.setString(1, item.getText());
+                                                        ResultSet rs=p.executeQuery();
+                                                        if(rs.equals(0))
+                                                        {
+                                                         JOptionPane.showMessageDialog(null, "Enter a Valid Name");
+                                                        }
+                                                        else{
+                                                        while(rs.next())
+                                                        {
+                                                            //System.out.println("Inside try 2");
+                                                            
+                                                            totalqty.setText(rs.getString("qty"));
+                                                            ppu.setText(rs.getString("price"));
+                                                        }
+                                                        }
+                                                        rs.close();
+                                                        p.close();
+                                                        con.close();
+                                                    }
+                                                catch(SQLException e)
+                                                    { }
+                                                catch(ClassNotFoundException e)
+                                                    {}
+
+                                                            }
+                                                    }
+                                                catch(Exception e){}
+                    }
+    }//GEN-LAST:event_itemKeyTyped
 
     /**
      * @param args the command line arguments
@@ -378,10 +486,8 @@ catch(Exception e){}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable T1;
     private javax.swing.JButton del;
+    private javax.swing.JButton home;
     private javax.swing.JTextField item;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -44,6 +44,7 @@ public class Add_stock extends javax.swing.JFrame {
         rst = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         T1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -94,6 +95,11 @@ public class Add_stock extends javax.swing.JFrame {
         getContentPane().add(jLabel4);
         jLabel4.setBounds(560, 310, 95, 17);
 
+        ppu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppuActionPerformed(evt);
+            }
+        });
         ppu.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 ppuKeyTyped(evt);
@@ -145,6 +151,15 @@ public class Add_stock extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(460, 430, 452, 160);
+
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Asus\\Desktop\\project\\icons8-Home-48.png")); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(210, 530, 79, 60);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,6 +353,16 @@ else
                     
     }//GEN-LAST:event_pidKeyTyped
 
+    private void ppuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ppuActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        homee h=new homee();
+        h.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -377,6 +402,7 @@ else
     private javax.swing.JTable T1;
     private javax.swing.JButton ad;
     private javax.swing.JTextField item;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

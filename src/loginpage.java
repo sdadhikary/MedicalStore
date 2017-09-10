@@ -1,4 +1,5 @@
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -38,7 +39,7 @@ public class loginpage extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         usr = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,26 +70,33 @@ public class loginpage extends javax.swing.JFrame {
         jLabel2.setBounds(580, 400, 200, 22);
         getContentPane().add(usr);
         usr.setBounds(760, 290, 294, 41);
-        getContentPane().add(pass);
-        pass.setBounds(760, 380, 294, 45);
 
-        jTextField1.setBackground(new java.awt.Color(240, 240, 240));
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 50)); // NOI18N
-        jTextField1.setText("MEDIPOINT");
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(620, 110, 290, 50);
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passKeyTyped(evt);
+            }
+        });
+        getContentPane().add(pass);
+        pass.setBounds(760, 385, 294, 40);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 50)); // NOI18N
+        jLabel4.setText("MEDIPOINT");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(620, 100, 350, 70);
 
         jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Asus\\Desktop\\project\\original.jpg")); // NOI18N
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("MEDIPOINT");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(1, -4, 1370, 730);
+        jLabel3.setBounds(1, -4, 1400, 730);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void logActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logActionPerformed
         // TODO add your handling code here:
-        homepage h=new homepage();
+        
+        homee h=new homee();
+
         if(usr.getText().equals("admin")&&pass.getText().equals("admin"))
              h.setVisible(true);
         else
@@ -98,6 +106,23 @@ public class loginpage extends javax.swing.JFrame {
     private void formWindowStateChanged(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowStateChanged
+
+    private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
+        // TODO add your handling code here:
+        char st=evt.getKeyChar();
+        try
+        {
+            if(usr.getText().equals("admin")&&pass.getText().equals("admin"))
+
+            if(st==KeyEvent.VK_ENTER)
+            { homee h=new homee();
+                 h.setVisible(true);
+            }
+        else
+            JOptionPane.showMessageDialog(null,"Enter valid details");   
+        }
+        catch(Exception e){}
+    }//GEN-LAST:event_passKeyTyped
 
     /**
      * @param args the command line arguments
@@ -138,7 +163,7 @@ public class loginpage extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton log;
     private javax.swing.JPasswordField pass;
     private javax.swing.JTextField usr;
